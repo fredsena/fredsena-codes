@@ -1,5 +1,15 @@
 Enter file contents here
 
+Linq NOT IN:
+
+public JsonResult GetCursos(string alunoId)
+{
+    int id = Convert.ToInt32(alunoId);
+    var cursosNotIn = db.AlunoCurso.Where(x => x.AlunoId == id).Select(y => y.CursoId);
+    var result = db.Curso.Where(x => !cursosNotIn.Contains(x.CursoId)).Select(c => new CursoModel { CursoId = c.CursoId, NomeCurso = c.NomeCurso }).ToList();
+    return Json(result);
+}
+
 Password=usr;Persist Security Info=False;User ID=Usr;Initial Catalog=Bd;Data Source=BD
 
 Data Source=.\SQLEXPRESS;Initial Catalog=MvcMusicStore;Integrated Security=True

@@ -1,4 +1,11 @@
 
+
+SELECT * FROM BMP.Conta WHERE 
+(('201411' >= CAST(YEAR(datInicio) AS CHAR(4)) + CAST(MONTH(datInicio) AS CHAR (2)) AND datfinal is null) 
+OR '201411' BETWEEN (CAST(YEAR(datInicio) AS CHAR(4)) + CAST(MONTH(datInicio) AS CHAR (2))) AND (CAST(YEAR(datFinal) AS CHAR(4)) + CAST(MONTH(datFinal) AS CHAR (2))))
+and ano = 2010 and ultimograu = 'S'
+
+
 -- DISTINTOS COM REPETIÇÃO de UF
 SELECT DISTINCT IdEmpreendimento, UF FROM 
 (
@@ -23,7 +30,7 @@ EXEC sp_attach_single_file_db @dbname='MvcMusicStore',
 @physname=N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\MvcMusicStore.mdf'
 GO
 
-CREATE PROCEDURE [BMP].[pGeraBalancete](@IdeBalancete INT)
+CREATE PROCEDURE [pGeraBalan](@IdeBalancete INT)
 AS
 DECLARE	@IdeBalanceteAnterior INT
 
@@ -33,7 +40,7 @@ SELECT
 FROM BMP.Balancete B
 LEFT JOIN BMP.Balancete BA
 	ON B.IdeAgente = BA.IdeAgente
-	AND BA.AnmCompetencia = CORP.UTIL.f_DeslocaAnoMes(b.AnmCompetencia, 'MES', -1)
+	AND BA.AnmCompetencia = UTIL.f_DeslocaAnoMes(b.AnmCompetencia, 'MES', -1)
 WHERE B.IdeBalancete = @IdeBalancete
 GROUP BY B.IdeBalancete;
 

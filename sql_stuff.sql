@@ -1,6 +1,21 @@
 
-//sql_stuff.sql
 
+/* Field value (description) displayed in SQL Management Studio in design mode */
+select 
+    st.name [Table],
+    sc.name [Column],
+    sep.value [Description]
+from sys.tables st
+inner join sys.columns sc on st.object_id = sc.object_id
+left join sys.extended_properties sep on st.object_id = sep.major_id
+                                     and sc.column_id = sep.minor_id
+                                     and sep.name = 'MS_Description'                     
+where st.name = 'Table Name'
+--and sc.name = @ColumnName
+order by st.name
+
+
+--Serch for range date intervals (year + month) in date fields 
 SELECT * FROM BMP.Conta WHERE 
 (('201411' >= CAST(YEAR(datInicio) AS CHAR(4)) + CAST(MONTH(datInicio) AS CHAR (2)) AND datfinal is null) 
 OR '201411' BETWEEN (CAST(YEAR(datInicio) AS CHAR(4)) + CAST(MONTH(datInicio) AS CHAR (2))) AND (CAST(YEAR(datFinal) AS CHAR(4)) + CAST(MONTH(datFinal) AS CHAR (2))))

@@ -22,6 +22,8 @@ public partial class _Default : System.Web.UI.Page
             BuscaPeriodoAtual();
             MontaGrid();
         }
+        
+        //ScriptManager.GetCurrent(this).RegisterPostBackControl(ImgBtn);
     }
     protected void MontaGrid()
     {

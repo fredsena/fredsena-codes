@@ -1,4 +1,6 @@
 
+string connString = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
+
 Password=usr;Persist Security Info=False;User ID=Usr;Initial Catalog=Bd;Data Source=BD
 
 Data Source=.\SQLEXPRESS;Initial Catalog=MvcMusicStore;Integrated Security=True

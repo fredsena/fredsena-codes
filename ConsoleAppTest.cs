@@ -84,6 +84,88 @@ namespace ConsoleAppTest
 
         #region MÉTODOS
 
+
+        private static byte? _flgmrc;
+
+        public static byte? FlgMrc
+        {
+            get { return _flgmrc; }
+            set { _flgmrc = value; }
+        }
+
+        public enum DadosPermitidos : byte
+        {
+            Marco_Obrigatório = 2,
+            Percentual = 4,
+            Data_Inicio = 8,
+            Data_Conclusao = 16
+        }
+        static void Main(string[] args)
+        {
+            //TestIfEnum();
+            CompareDates();
+        }
+
+        static void TestIfEnum()
+        {
+            //0,6,18,28
+            //Resumo: habilita campos segundo as condições abaixo:
+            //0 : não habilita nenhum campo para preenchimento
+            //6 : habilita somente MarcoObrigatorio e Percentual
+            //
+
+            FlgMrc = 18;
+
+            if (
+                !(
+                    (Convert.ToByte(DadosPermitidos.Data_Inicio) & FlgMrc) == Convert.ToByte(DadosPermitidos.Data_Inicio)
+                 )
+               )
+            {
+                string txtPrevInicio = "txtPrevInicio: Enabled = false / Visible = false";                
+            }
+
+            var test = 16 & 16;
+
+            var test1 = Convert.ToByte(DadosPermitidos.Data_Inicio) & 0;
+            var test2 = Convert.ToByte(DadosPermitidos.Data_Inicio) & 6;
+            var test3 = Convert.ToByte(DadosPermitidos.Data_Inicio) & 18;
+            var test4 = Convert.ToByte(DadosPermitidos.Data_Inicio) & 28;
+
+
+            bool MarcoObrigatorioChecked = (Convert.ToByte(DadosPermitidos.Marco_Obrigatório) & Convert.ToByte(FlgMrc)) == Convert.ToByte(DadosPermitidos.Marco_Obrigatório);
+            bool PercentualChecked = (Convert.ToByte(DadosPermitidos.Percentual) & Convert.ToByte(FlgMrc)) == Convert.ToByte(DadosPermitidos.Percentual);
+            bool DatasInicioChecked = (Convert.ToByte(DadosPermitidos.Data_Inicio) & Convert.ToByte(FlgMrc)) == Convert.ToByte(DadosPermitidos.Data_Inicio);
+            bool DatasConclusaoChecked = (Convert.ToByte(DadosPermitidos.Data_Conclusao) & Convert.ToByte(FlgMrc)) == Convert.ToByte(DadosPermitidos.Data_Conclusao);
+
+
+        }
+
+        static void Print(string texto)
+        {
+            Debug.WriteLine(texto);
+        }
+
+        static void CompareDates()
+        {
+            DateTime? date1 = null;
+            DateTime? date2 = null;            
+
+            int result = Nullable.Compare(date1,date2);
+
+            /*
+            Less than zero: The HasValue property for n1 is false, and the HasValue property for n2 is true.
+            -or- The HasValue properties for n1 and n2 are true, and the value of the Value property for n1 is less than the value of the Value property for n2.
+            
+            Zero: The HasValue properties for n1 and n2 are false.
+            -or- The HasValue properties for n1 and n2 are true, and the value of the Value property for n1 is equal to the value of the Value property for n2.
+
+            Greater than zero: The HasValue property for n1 is true, and the HasValue property for n2 is false.
+            -or- The HasValue properties for n1 and n2 are true, and the value of the Value property for n1 is greater than the value of the Value property for n2.
+            */
+        }	
+
+
         static void BuscaPlanoContas()
         {
             using (var db = new Entidades())

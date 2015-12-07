@@ -1,3 +1,29 @@
+
+//Encript connection strings
+
+<%
+'Find IIS application identity
+Response.Write(System.Security.Principal.WindowsIdentity.GetCurrent().Name);
+%>
+<br>
+<% 
+foreach (string var in Request.ServerVariables)
+{
+  Response.Write(var + " " + Request[var] + "<br>");
+} 
+%>
+
+
+//1. Adding ACL for access to the RSA Key container...
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319>aspnet_regiis.exe -pa "NetFrameworkConfigurationKey" "IIS APPPOOL\sitename.com"
+
+//2. Encrypting a Web Configuration Section
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319>aspnet_regiis.exe -pe "connectionStrings" -app "/" -site "2"
+
+//3. Decrypting a Web Configuration Section
+aspnet_regiis -pd "connectionStrings" -app "/SampleApplication"
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

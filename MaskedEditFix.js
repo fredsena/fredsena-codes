@@ -1,3 +1,10 @@
+
+//Usage:
+var txtNum = document.getElementById('<%=txtNum.ClientID%>');
+
+<asp:TextBox ID="txtNum" onKeyDown="KeyDownHandler(txtNum);" runat="server" MaxLength="12" Width="200px" TabIndex="5"></asp:TextBox>
+<cc1:MaskedEditExtender ID="MaskedEditExtender1" runat="server" Mask="999/9999" TargetControlID="txtNum"></cc1:MaskedEditExtender>
+
 function KeyDownHandler(maskExtenderId) {
     if (navigator.appName != "Microsoft Internet Explorer") {
         if (event.keyCode == 35 || event.keyCode == 36) { // Home and End buttons functionality

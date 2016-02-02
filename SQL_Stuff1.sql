@@ -1,4 +1,10 @@
 
+/* Get all Info from columns or tables */ 
+SELECT COLUMN_NAME, DATA_TYPE , *
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE COLUMN_NAME like '%test%' or COLUMN_NAME LIKE '%test2%'
+AND TABLE_CATALOG = 'DATABASE'
+
 /* Find All Triggers */
 SELECT 
      sysobjects.name AS trigger_name 

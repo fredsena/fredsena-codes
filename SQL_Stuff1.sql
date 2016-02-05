@@ -1,6 +1,13 @@
 
+--//Add MDB file in SQL SERVER	
+USE [master] --// do not use (attach) *_log.ldf
+GO
+EXEC sp_attach_single_file_db @dbname='MvcMusicStore',
+@physname=N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\MvcMusicStore.mdf'
+GO
+
 /* Get all Info from columns or tables */ 
-SELECT COLUMN_NAME, DATA_TYPE , *
+SELECT COLUMN_NAME, DATA_TYPE , NUMERIC_PRECISION, NUMERIC_SCALE, CHARACTER_MAXIMUM_LENGTH, *
 FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE COLUMN_NAME like '%test%' or COLUMN_NAME LIKE '%test2%'
 AND TABLE_CATALOG = 'DATABASE'
@@ -18,19 +25,14 @@ SELECT
     ,OBJECTPROPERTY( id, 'ExecIsInsteadOfTrigger') AS isinsteadof 
     ,OBJECTPROPERTY(id, 'ExecIsTriggerDisabled') AS [disabled] 
 FROM sysobjects 
-
 INNER JOIN sysusers 
     ON sysobjects.uid = sysusers.uid 
-
 INNER JOIN sys.tables t 
     ON sysobjects.parent_obj = t.object_id 
-
 INNER JOIN sys.schemas s 
     ON t.schema_id = s.schema_id 
-
 WHERE sysobjects.type = 'TR' 
 AND OBJECT_NAME(parent_obj) like 'SomeTable%'
-
 
 /* Field value (description) displayed in SQL Management Studio in design mode */
 select 
@@ -54,7 +56,7 @@ OR '201411' BETWEEN (CAST(YEAR(datInicio) AS CHAR(4)) + CAST(MONTH(datInicio) AS
 and ano = 2010 and ult = 'S'
 
 
--- DISTINTOS COM REPETIÇÃO de UF
+-- Distinct rows with field UF ocurrence more than once
 SELECT DISTINCT Id, UF FROM 
 (
 	SELECT 
@@ -67,21 +69,27 @@ SELECT DISTINCT Id, UF FROM
 		EMP.id, MUN.UF
 ) a
 WHERE a.qtd > 1
-ORDER BY 
-	id
+ORDER BY id
 
---//Adicionar arquivo MDB no SQL SERVER	
-USE [master] --//retirar o MvcMusicStore_log.ldf
- GO
--- Method 1: I use this method
-EXEC sp_attach_single_file_db @dbname='MvcMusicStore',
-@physname=N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\MvcMusicStore.mdf'
-GO
 
+/* EXAMPLE 1: Recursive Queries Using Common Table Expressions (CTE) */
+WITH ct1 as
+(
+	SELECT B.ID,MAX(B1.LocType) LocType1
+	FROM Batch B
+	INNER JOIN Batch B1 ON B.TransType = 41 AND B1.TransType = 40
+	WHERE B.TransType = 41
+	GROUP BY B.ID,B.BatchID,B.TransType,B.LocType
+)
+UPDATE B
+SET B.LocType = ct1.LocType1
+FROM Batch B
+INNER JOIN ct1 ON B.ID = ct1.ID
+
+/* EXAMPLE 2: Recursive Queries Using Common Table Expressions (CTE) with procedures*/
 CREATE PROCEDURE [pGeraB](@Ide INT)
 AS
 DECLARE	@IdeBa INT
-
 SELECT 
 	@IdeBalancete = B.IdeBal, 
 	@IdeBalanceteA = MAX(BA.IdeBal) 

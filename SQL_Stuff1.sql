@@ -6,6 +6,13 @@ EXEC sp_attach_single_file_db @dbname='MvcMusicStore',
 @physname=N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\MvcMusicStore.mdf'
 GO
 
+/* Format (pad) data with leading characters  */
+SELECT ISNULL(RIGHT(REPLICATE('0', 10) + 'FRED', 10), REPLICATE('0', 10)) 
+SELECT ISNULL(RIGHT(REPLICATE('0', 10) + NULL, 10), REPLICATE('0', 10)) 
+SELECT ISNULL(LEFT('FRED' + REPLICATE('0', 10), 10), REPLICATE('0', 10))
+SELECT ISNULL(LEFT(NULL + REPLICATE('0', 10), 10), REPLICATE('0', 10))
+
+
 /* Get all Info from columns or tables */ 
 SELECT COLUMN_NAME, DATA_TYPE , NUMERIC_PRECISION, NUMERIC_SCALE, CHARACTER_MAXIMUM_LENGTH, *
 FROM INFORMATION_SCHEMA.COLUMNS 

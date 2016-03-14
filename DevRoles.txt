@@ -37,3 +37,114 @@ Experience working with C++, Win32 C++, Perl would be advantageous.
 Experience with automated development and test solutions such as RoR, MSBuild, Visual Studio SDK extensions, etc.
 This is an opportunity to become a key player in a fast growing software company.
 Contact Us for more information.
+
+
+
+
+Business Description of Integration
+
+SYSTEM_X is the litigation system used by CLIENT_X legal department for all legal matters, claim related or not. This system is currently integrated to all legacy systems and must also be integrated to SYSTEM_Y ClaimService.
+
+The integration between SYSTEM_X and SYSTEM_Y ClaimService occur at three different moments:
+
+•	SYSTEM_X retrieves claim info from ClaimService and flag the claim (exposure) as related to a judicial process
+•	SYSTEM_X notifies of ClaimService of a legal payment to be made against a claim (exposure)
+•	At the end of the month, ClaimService generates a list with all payments made during the month that were requested by SYSTEM_X
+
+There is a fourth moment related to this process but it is not an integration between SYSTEM_X and ClaimService, instead it is an integration between SYSTEM_X and the GL System (SAP). A the end of the month, SYSTEM_X will generate a file with all accounting operations (reserves, payments) for a legal matters and submit to the General Ledger system. This file goes through many transformations before being delivered to SAP, but none of those would require SYSTEM_Y ClaimService processing.
+
+Performance and Availability
+Requirement	Expectation
+Approximate time to retrieve claim info	< 3 sec
+Approximate time to request legal payment	<3 sec
+Approximate time to generate monthly payment batch file	Within batch execution window
+Availability of external system	Same as ESB availability
+
+Related Artifacts
+This integration will require:
+•	A ClaimService web service that upon receiving a claim number, will retrieve some claim information and also flag the corect exposure as related to a legal matter.
+•	A ClaimService web service that will receive payment instructions from SYSTEM_X to execute payments against a claim/exposure
+•	A ClaimService batch process that will be executed monthly that wil generate a file containing all legal payments executed during the previous month.
+
+Related Issues
+Currently the SYSTEM_X refer to all claim matters as a 8 digit number, with ClaimService this 8 digit will need to be used to refer to the claim number and also exposure identifier so that the correct exposure can be flagged and the legal payments are associated to the correct exposure.
+
+Assumptions
+Business Assumptions
+SYSTEM_Y InsuranceSuite
+•	SYSTEM_Y ClaimService will be able to identify the claim and exposure with the information received by SYSTEM_X
+•	For a payment request, SYSTEM_Y ClaimService will be able to identify to correct cost category and cost type (indemnity, attorney fees, expenses, etc.) and the beneficiary
+•	ClaimService is not responsible to calculating taxation related to a payment received from SYSTEM_X
+•	The financial transactions (reserves and payments) originated from SYSTEM_X, will not need to be sent to the ClaimService – General Ledger integration since it is already sent by SYSTEM_X at the end of the month.
+•	A claim flagged as with a legal matter on SYSTEM_X does not require any special treatment (i.e. read only exposures, block payments, etc.) or functionality on ClaimService
+•	If a claim is inappropriately flagged as with a legal matter by SYSTEM_X, the same will need to have the flag removed since there is no process by SYSTEM_X remove a flag from a claim previously retrieved.
+
+External System - SYSTEM_X
+•	SYSTEM_X will be modified to submit the claim-exposure information to ClaimService.
+•	SYSTEM_X will continue to generate the monthly accounting file to be submitted to the General Ledger.
+
+
+Technical Assumptions
+SYSTEM_Y InsuranceSuite
+•	ClaimService will publish two web services to be published at the CLIENT_X ESB and be consumed by SYSTEM_X
+o	The first service will: 
+?	receive a 8 digit identifier from SYSTEM_X which will be used to identify a claim and exposure on ClaimService
+?	flag the claim/exposure as related to a legal matter on SYSTEM_X
+?	retrieve basic claim/exposure information to be returned to SYSTEM_X
+o	The second service will:
+?	receive a 8 digit identifier from SYSTEM_X which will be used to identify a claim and exposure on ClaimService, together with payment information (cost category and type, beneficiary and amounts).
+?	Create the reserve for the appropriate claim/exposure with cost category and cost type and amount received from SYSTEM_X and issue a payment to the beneficiary.
+?	Return to SYSTEM_X a confirmation of payment entered or an error if the claim/exposure are not found.
+•	ClaimService will have a new batch process schedule to be run on the first day of each month to identify all legal payments received from SYSTEM_X during the previous month and output them to a file
+
+External System - ESB
+•	The	ESB will publish the SYSTEM_Y WebServices related to SYSTEM_X, the ESB will perform any data transformations needed by both systems.
+
+External System - SYSTEM_X
+•	SYSTEM_X will consume services published by SYSTEM_Y on the ESB. 
+•	SYSTEM_X will submit the information required to identify a claim/exposure
+•	SYSTEM_X will include as part of the payment request the appropriate cost type, cost category, amounts and beneficiary
+•	SYSTEM_X will include the appropriate taxation information related to these payments
+•	SYSTEM_X will generate the monthly files with all legal accounting movements (reserves, payments, etc.)
+Dependencies
+
+Dependency	Impact of Missed Dependency
+CLIENT_X ESB Web Services need to be estimated and build	Unable to consume ClaimService web services.
+
+User Stories
+New legal matter on SYSTEM_X related to a Claim on ClaimService
+1.	The user on SYSTEM_X will be able to enter a 8 digit number to associate a claim to a legal matter.
+2.	The SYSTEM_X will invoke the ESB service which will identify if this is a ClaimService number and invoke the service from ClaimService
+3.	ClaimService will search its records for the appropriate claim/exposure with the 8 digit received from SYSTEM_X
+a.	If the claim/exposure is not found, an error message will be returned
+b.	If the claim/exposure is found, the exposure will be flagged and basic information will be returned
+
+
+New payment o SYSTEM_X
+1.	Since SYSTEM_X is unable to communicate to the SAP financial system, upon having a payment entered on SYSTEM_X, if this payment is related to a claim present on SYSTEM_Y ClaimService, SYSTEM_X will invoke a service on CLIENT_X’s ESB informing:
+a.	The claim/exposure identifier
+b.	The cost category and type for this payment
+c.	The amount of the payment
+d.	The beneficiary information including taxation and bank information
+2.	CLIENT_X ESB will return this information, perform any transformation and send to SYSTEM_Y ClaimService
+3.	SYSTEM_Y ClaimService will:
+a.	Locate the claim and exposure
+b.	Create a new reserve with the cost type/category and amount for the claim/exposure
+c.	Issue a payment for the full amount against this reserve payable to the beneficiary informed by SYSTEM_X together with the taxation information
+d.	This reserve and payment transactions will not be sent to the enterprise general ledger
+
+End of month, payment closing file
+1.	At the first day of every month, a new batch job will be scheduled on ClaimService to execute and identify all legal payments processed on the previous month that were requested by SYSTEM_X
+2.	This file will be made available for SYSTEM_X to consume
+
+
+Messages
+Description of Message	Number of Data Elements	Estimated Derivations	Event to Trigger Message
+None			
+
+
+Risks
+Risk	Probability	Impact	Mitigation Plan
+ESB Services not implemented	Low	High	Unable to use integration.
+SYSTEM_X unable to send claim/Exposure information	Medium	High	If SYSTEM_X cannot be modified, another process will need to be put in place, such as an activity to a user to research and identify the correct claim/exposure for all SYSTEM_X operations.
+

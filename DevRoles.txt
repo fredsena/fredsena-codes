@@ -1,0 +1,39 @@
+
+
+We are currently looking to hire senior developers.
+
+These roles will challenge the skills of the successful applicants. 
+
+The successful applicant will require .NET (C#) and MS SQL development skills. 
+The senior roles require someone with understanding of large scale databases with high transaction volumes and the complexities this brings. 
+
+These skills would be advantageous for the junior role also.
+
+We audits all types of devices on a network our technology stack is very complex. 
+
+The primary technologies the candidates will be working on are .NET C#, Oracle and MS SQL, exposure to other database systems, operating systems and networking technologies (VMWare, AIX L-PAR, Solaris Zones, Cisco IOS, etc.) are relevant.
+
+Experience of automated development environments and development of Content Management Systems will be advantageous.
+
+REQUIRED SKILLS:
+
+Experience developing large scale transactional and/or batch processing applications following a full software development life cycle.
+2+ years of .NET experience developing a mix of ASP.NET web applications, complex multi-threaded .NET services and .NET windows applications for the junior role, 5+ years for senior roles.
+2+ years experience developing T-SQL applications using complex logic for the senior roles.
+Familiarity with common development toolsets including NANT, SQL Server Management Studio, Visual Studio 2005, Microsoft Project, and Subversion.
+The successful candidates will require:
+
+Ability to design and implement scalable application architectures.
+Ability to build relational data models and communicate their intent.
+Ability to identify architectural problems in existing and proposed application designs.
+Ability to work to agreed specifications managing your own time effectively to meet agreed deadlines.
+Ability to work well within a team.
+DESIRED SKILLS:
+
+Ability to normailize and manage large MS SQL Server databases including configuring indexes, constraints, statistics, and logging.
+Ability to develop applications utilizing low level network communications such as NetBIOS, SMB, WMI, Remote Registry, SSH, and/or Telnet.
+Experience working with Unix/Linux environments including application deployment, performance tuning, knowledge of shell scripting.
+Experience working with C++, Win32 C++, Perl would be advantageous.
+Experience with automated development and test solutions such as RoR, MSBuild, Visual Studio SDK extensions, etc.
+This is an opportunity to become a key player in a fast growing software company.
+Contact Us for more information.

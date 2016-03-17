@@ -12,6 +12,14 @@ SELECT ISNULL(RIGHT(REPLICATE('0', 10) + NULL, 10), REPLICATE('0', 10))
 SELECT ISNULL(LEFT('FRED' + REPLICATE('0', 10), 10), REPLICATE('0', 10))
 SELECT ISNULL(LEFT(NULL + REPLICATE('0', 10), 10), REPLICATE('0', 10))
 
+/* Get text from objects (sys.sql_modules, sys.objects, sys.procedures, syscomments) */ 
+SELECT DISTINCT o.name AS Object_Name, o.type_desc FROM sys.sql_modules m INNER JOIN sys.objects o ON m.object_id = o.object_id 
+WHERE m.definition Like '%\[name\]%' ESCAPE '\';
+
+SELECT name FROM sys.procedures WHERE  Object_definition(object_id) LIKE '%name%';
+
+SELECT DISTINCT object_name(id) FROM syscomments WHERE text like '%name%' order by object_name(id);
+/* ***************************************************************************************************** */ 
 
 /* Get all Info from columns or tables */ 
 SELECT COLUMN_NAME, DATA_TYPE , NUMERIC_PRECISION, NUMERIC_SCALE, CHARACTER_MAXIMUM_LENGTH, *

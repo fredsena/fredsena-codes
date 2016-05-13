@@ -1,4 +1,7 @@
 
+//Get project path: COOL!!!!!!
+string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
 string connString = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
 
 Password=usr;Persist Security Info=False;User ID=Usr;Initial Catalog=Bd;Data Source=BD

@@ -1,5 +1,10 @@
 
 /* *******************************************************************/
+//use Enum as optional parameter
+public enum StatusService : int { NO_DATA = 0, HAS_DATA = 1, ERROR = 2 }
+public string Execute(string someString, StatusService status = StatusService.HAS_DATA) {//DoSomething...}
+
+/* *******************************************************************/
 //Get the name of current function
 Console.WriteLine(new StackTrace().GetFrame(0).GetMethod().Name.ToString());
 /* *******************************************************************/

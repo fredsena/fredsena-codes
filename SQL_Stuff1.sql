@@ -6,6 +6,9 @@ EXEC sp_attach_single_file_db @dbname='MvcMusicStore',
 @physname=N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\MvcMusicStore.mdf'
 GO
 
+/* Rename a Column Name or Table Name */
+EXEC sp_RENAME 'table_name.old_name', 'new_name', 'COLUMN'
+
 /* Format (pad) data with leading characters  */
 SELECT ISNULL(RIGHT(REPLICATE('0', 10) + 'FRED', 10), REPLICATE('0', 10)) 
 SELECT ISNULL(RIGHT(REPLICATE('0', 10) + NULL, 10), REPLICATE('0', 10)) 

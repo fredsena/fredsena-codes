@@ -1,4 +1,37 @@
 
+//Convert DataReader to List<T>
+//http://stackoverflow.com/questions/1464883/how-can-i-easily-convert-datareader-to-listt
+private static List<[ClassName]> ExecuteQuery()
+{
+	List<[ClassName]> [ClassNameCollection] = new List<[ClassName]>();
+
+	using (SqlConnection conn = new SqlConnection(@"Data Source=XYZ\AAA;Initial Catalog=BBB;Integrated Security=True"))
+	{
+		conn.Open();
+		SqlCommand cmd = new SqlCommand([QueryString], conn);
+
+		using (IDataReader reader = cmd.ExecuteReader())
+		{
+			[ClassNameCollection] = reader.Select(r => new [ClassName]
+			{
+				Property1 = r["Property1"] is DBNull ? null : r["Property1"].ToString().Trim(),
+				Property2 = r["Property2"] is DBNull ? null : r["Property2"].ToString().Trim()
+			}).ToList();
+		}
+	}
+	return [ClassNameCollection];
+}
+//Helper Class for "Convert DataReader to List<T>"
+public static class LinkHelper
+{
+	public static IEnumerable<T> Select<T>(this IDataReader reader, Func<IDataReader, T> projection)
+	{
+		while (reader.Read())
+		{
+			yield return projection(reader);
+		}
+	}
+}
 
 //Linq NOT IN:
 public JsonResult GetCursos(string alunoId)

@@ -1,4 +1,9 @@
 
+
+/* Format number as Currency */
+select format(1548.36, 'N', 'pt-br')
+select format(14131.8198, 'N', 'pt-br')
+
 --//Add MDB file in SQL SERVER	
 USE [master] --// do not use (attach) *_log.ldf
 GO

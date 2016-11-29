@@ -30,7 +30,7 @@ SELECT DISTINCT object_name(id) FROM syscomments WHERE text like '%name%' order 
 /* ***************************************************************************************************** */ 
 
 /* Get all Info from columns or tables */ 
-SELECT COLUMN_NAME, DATA_TYPE , NUMERIC_PRECISION, NUMERIC_SCALE, CHARACTER_MAXIMUM_LENGTH, *
+SELECT COLUMN_NAME, DATA_TYPE , NUMERIC_PRECISION, NUMERIC_SCALE, CHARACTER_MAXIMUM_LENGTH
 FROM INFORMATION_SCHEMA.COLUMNS 
 WHERE COLUMN_NAME like '%test%' or COLUMN_NAME LIKE '%test2%'
 AND TABLE_CATALOG = 'DATABASE'

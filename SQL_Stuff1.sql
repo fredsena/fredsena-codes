@@ -1,5 +1,9 @@
 
 
+/* find the number of occurrences of a subsequence in a string */
+declare @X varchar(100) = 'Fred de Sena Ribeiro'
+select ((LEN(@X) - LEN( REPLACE (@X, 'e', '') ) ) / LEN('e'))
+
 /* Format number as Currency */
 select format(1548.36, 'N', 'pt-br')
 select format(14131.8198, 'N', 'pt-br')

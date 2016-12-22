@@ -11,6 +11,7 @@ Console.WriteLine(new StackTrace().GetFrame(0).GetMethod().Name.ToString());
 
 //Get project path: COOL!!!!!!
 string projectPath = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+string projectPath2 = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.FullName,"abc.txt")
 /* *******************************************************************/
 
 string connString = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;

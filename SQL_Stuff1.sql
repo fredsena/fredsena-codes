@@ -1,5 +1,15 @@
 
 
+/* Total Table Record Count */
+SELECT 'Table Name'=convert(char(25),t.TABLE_NAME),
+      'Total Record Count'=max(i.rows)
+FROM sysindexes i, INFORMATION_SCHEMA.TABLES t
+WHERE t.TABLE_NAME = object_name(i.id)
+      and t.TABLE_TYPE = 'BASE TABLE'
+GROUP BY t.TABLE_SCHEMA, t.TABLE_NAME
+HAVING max(i.rows)> 0
+order by 2 desc
+
 /* find the number of occurrences of a subsequence in a string */
 declare @X varchar(100) = 'Fred de Sena Ribeiro'
 select ((LEN(@X) - LEN( REPLACE (@X, 'e', '') ) ) / LEN('e'))

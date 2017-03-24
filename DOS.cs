@@ -1,4 +1,11 @@
 
+
+Import-Module WebAdministraton
+
+Set-ItemProperty IIS:\sites\[site name] -Name enabledProtocols -Value "http,net.pipe,net.tcp"
+Set-ItemProperty IIS:\Sites\[site name] -Name bindings -Value @(@{protocol="net.tcp"; bindingInformation="812:*"}, @{protocol="net.pipe"; bindingInformation="[url name]"}) -Force
+ 
+
 //Merge a text (.txt) file in the Windows command line
 copy *.txt newfile.txt
 

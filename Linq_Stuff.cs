@@ -1,4 +1,6 @@
 
+//http://blog.developers.ba/using-classic-ado-net-in-asp-net-vnext/
+
 //Convert DataReader to List<T>
 //http://stackoverflow.com/questions/1464883/how-can-i-easily-convert-datareader-to-listt
 private static List<[ClassName]> ExecuteQuery()

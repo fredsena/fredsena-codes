@@ -59,7 +59,7 @@ var sum = table.AsEnumerable().Sum(x=>x.Field<int>("SomeProperty"));
 					
 
 //Data table to array int 
-var result = dt.Rows.Cast<DataRow>().Select(row => row[0].ToString()).ToArray();
+var result = dt.Rows.Cast<DataRow>().Select(row => row[0].ToString()).OrderBy(n => n).ToArray();
 int[] dr2 = Array.ConvertAll(result, (p => Convert.ToInt32(p)));
 
 DataRow[] dr = dt.AsEnumerable().Take(1).ToArray();

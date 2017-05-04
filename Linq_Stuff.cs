@@ -55,6 +55,39 @@ public static class LinkHelper
 	}
 }
 
+/* ############################################################################################################################### */
+//extension method to Bulk insert data from List<T> into SQL Server.
+//http://blog.developers.ba/bulk-insert-generic-list-sql-server-minimum-lines-code/
+var listPerson = new List<Person>
+    {
+         new Person() {Id = 1}, 
+         new Person() {Id = 2}
+    };
+ 
+using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SomeConnectionString"].ConnectionString))
+{
+ connection.Open();
+ SqlTransaction transaction = connection.BeginTransaction();
+
+ using (var bulkCopy = new SqlBulkCopy(connection, SqlBulkCopyOptions.Default, transaction))
+ {
+    bulkCopy.BatchSize = 100;
+    bulkCopy.DestinationTableName = "dbo.Person";
+    try
+    {
+	bulkCopy.WriteToServer(listPerson.AsDataTable());
+    }
+    catch (Exception)
+    {
+	transaction.Rollback();
+	connection.Close();
+    }
+  }
+
+  transaction.Commit();
+}
+/* ############################################################################################################################### */
+
 //Linq NOT IN:
 public JsonResult GetCursos(string alunoId)
 {

@@ -3,25 +3,29 @@
 
 //Convert DataReader to List<T>
 //http://stackoverflow.com/questions/1464883/how-can-i-easily-convert-datareader-to-listt
-private static List<[ClassName]> ExecuteQuery()
+public static List<ObjectDTO> GetDistinctObjects()
 {
-	List<[ClassName]> [ClassNameCollection] = new List<[ClassName]>();
+    var collections = new List<ObjectDTO>();
 
-	using (SqlConnection conn = new SqlConnection(@"Data Source=XYZ\AAA;Initial Catalog=BBB;Integrated Security=True"))
+    using (SqlConnection conn = new SqlConnection(@"Data Source=XYZ;Initial Catalog=DBSomething;Integrated Security=True"))
+    {
+	conn.Open();
+	var cmd = new SqlCommand(SqlQueries.GetDistinctObjects(), conn);
+
+	using (IDataReader reader = cmd.ExecuteReader())
 	{
-		conn.Open();
-		SqlCommand cmd = new SqlCommand([QueryString], conn);
-
-		using (IDataReader reader = cmd.ExecuteReader())
-		{
-			[ClassNameCollection] = reader.Select(r => new [ClassName]
-			{
-				Property1 = r["Property1"] is DBNull ? null : r["Property1"].ToString().Trim(),
-				Property2 = r["Property2"] is DBNull ? null : r["Property2"].ToString().Trim()
-			}).ToList();
-		}
+	    collections = reader.Select(r => new ObjectDTO
+	    {
+		Name = r["Name"] is DBNull? null : r["Name"].ToString().Trim(),
+		Year = r["Year"] is DBNull? 0 : Convert.ToInt32(r["Year"].ToString().Trim()),
+		DateUpdated = r["DateUpdated"] is DBNull ? (DateTime?)null : Convert.ToDateTime(r["DateUpdated"].ToString().Trim()),
+		DataGuid = r["DataGuid"] is DBNull ? Guid.Empty : new Guid(r["DataGuid"].ToString().Trim()),
+		Token = r["Token"] is DBNull ?new byte() : Convert.ToByte(r["Token"].ToString().Trim()),
+		Active = r["Active"] is DBNull ? false : Convert.ToBoolean(r["Active"].ToString().Trim())
+	    }).ToList();
 	}
-	return [ClassNameCollection];
+     }	
+     return collections;
 }
 
 public static class LinkHelper

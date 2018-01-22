@@ -1,4 +1,11 @@
 
+//get duplicate items from a list using LINQ
+//https://stackoverflow.com/questions/18547354/c-sharp-linq-find-duplicates-in-list?noredirect=1&lq=1
+//https://stackoverflow.com/questions/3811464/how-to-get-duplicate-items-from-a-list-using-linq
+
+var duplicates = lst.GroupBy(s => s).SelectMany(grp => grp.Skip(1));
+
+
 //http://blog.developers.ba/using-classic-ado-net-in-asp-net-vnext/
 
 //Convert DataReader to List<T>

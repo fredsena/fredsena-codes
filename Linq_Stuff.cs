@@ -1,4 +1,10 @@
 
+//Group a List<KeyValuePair<object1,object2>> as grouped object2 with object1
+var result = 
+	GetMethod() //List<KeyValuePair<object1,object2>>
+	.GroupBy(p => p.UserId, p => p.MethodGuid, (key, g) => new { UserId = key, MethodGuid = g.ToList().Distinct() })
+	.ToList();
+
 //get duplicate items from a list using LINQ
 //https://stackoverflow.com/questions/18547354/c-sharp-linq-find-duplicates-in-list?noredirect=1&lq=1
 //https://stackoverflow.com/questions/3811464/how-to-get-duplicate-items-from-a-list-using-linq

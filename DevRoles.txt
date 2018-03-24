@@ -1,4 +1,63 @@
  
+Software Development
+Building scalable solutions for world-class problems
+At Amazon, we hire the best minds in technology to innovate, build and break things for the benefit of our customers. That intense focus on customers is why we are one of the world’s most beloved brands – it’s part of our company DNA.
+
+Our challenges are big - impacting millions of customers, sellers and developers, and countless products – and our path is not always easy. Doing the right thing rarely is. So we’re selective about who joins us on this journey. There’s a certain kind of person who takes on the challenges of software development at Amazon – someone excited by the idea of owning; people who like to build new platforms, features and services from scratch, developers who can manage the ambiguity and pace of a company whose ship cycles are measured in weeks, not years.
+
+Amazon is a place where builders build.
+
+Here is a sampling of Software Development positions we hire:
+Software Development Engineer (SDE)
+Software Development Engineer in Test (SDET)
+Quality Assurance Engineer (QAE)
+Android Engineer
+Application Engineer
+Solutions Architect
+
+======================================================================================================================================
+SDE Amazon Ion
+Job ID: 629689 | Amazon.com Services, Inc.
+DESCRIPTION
+Your job will be to disrupt Amazon’s culture by introducing new ideas that will change the way we develop software. This team has no on-call, no legacy systems to support, and 100% freedom to design new solutions that will impact all of Amazon. This is a great opportunity for growth given the visibility of your program at the Consumer Leadership Team along with the 6 Principals and 2 Distinguished Engineers in our org to support us.
+
+As a Senior Software Development Engineer of the Ion Team, you will shape Amazon’s future by introducing frictionless programming. You will be pioneering an approach to software engineering by enabling developers to focus on building systems that delight their customers, while minimizing boilerplate code. The Ion Team develops libraries, frameworks, and techniques to operate on data using Ion (a superset of JSON) as the foundational technology. Your goal will be to expand the Ion libraries, guidelines, and ecosystem while driving toward a vision that will make Ion an integral part of every AWS service.
+
+You will have the sponsorship you need from the Consumer and AWS organizations to identify efficiency improvements in all facets of technology including: using up to date tools and the latest hardware and services; reducing waste; simplifying architecture and optimizing service performance. Supported by a talented software development team you will build a centralized list of prioritized efforts with the long term objective of improving Amazon’s ability to “Detect and Analyze” potential efficiency opportunities quickly through self-diagnosing profiling tools and continuously drive improvement through monitoring and tracking.
+
+You will lead all phases of software development to build services to support our goal. Your systems will drive service and product efficiency opportunities, from idea generation to scoping, to strategy building and ultimately automation for self-monitoring, self-diagnosing and self-healing solutions. As the successful candidate, you will be a rock star engineer, be data driven, have the ability to creatively deal with ambiguity, and juggle cross-organization complexity. You will also have the leadership skills to influence your peers to build scalable and cost-effective systems. If you are interested in making a difference, come join our team. We’ve been waiting for you!
+
+Professional traits that are not unique to this position, but necessary for Amazon leaders:
+• Exhibits excellent judgment
+• Has relentlessly high standards (is never satisfied with the status quo)
+• Is able to dive deep and is never out of touch with the details of the business or the technology
+• Expects and requires innovation of her/his team
+• Has passion and convictions and the innate ability to inspire passion in others
+• Strong results orientation
+• Thinks big
+
+You can learn more about Ion via http://amznlabs.github.io/ion-docs/
+
+BASIC QUALIFICATIONS
+· Bachelor’s Degree in Computer Science or related field
+· Equivalent experience to a Bachelor's degree based on 3 years of work experience for every 1 year of education
+· 8+ years professional experience in software development
+· Computer Science fundamentals in object-oriented design
+· Computer Science fundamentals in data structures
+· Computer Science fundamentals in algorithm design, problem solving, and complexity analysis
+· Proficiency in, at least, one modern programming language such as C++ or Java
+
+PREFERRED QUALIFICATIONS
+• Experience taking a leading role in building complex software systems that have been successfully delivered to customers
+• Knowledge of professional software engineering practices & best practices for the full software development life cycle, including coding standards, code reviews, source control management, build processes, testing, and operations
+• Experience with distributed computing and enterprise-wide systems
+• Experience in communicating with users, other technical teams, and senior management to collect requirements, describe software product features, technical designs, and product strategy
+• Experience mentoring junior software engineers to improve their skills, and make them more effective, product software engineers
+• Experience influencing software engineers best practices within your team
+• Hands-on expertise in many disparate technologies, typically ranging from front-end user interfaces through to back-end systems and all points in between
+• Expert at identifying optimization opportunities in other people’s software
+
+=======================================================================================================================================
 
 We are currently looking to hire senior developers.
 

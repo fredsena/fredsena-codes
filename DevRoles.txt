@@ -101,7 +101,7 @@ Contact Us for more information.
 
 
 Business Description of Integration
-
+https://www.guidewire.com/our-approach/technology
 SYSTEM_X is the litigation system used by CLIENT_X legal department for all legal matters, claim related or not. This system is currently integrated to all legacy systems and must also be integrated to SYSTEM_Y ClaimService.
 
 The integration between SYSTEM_X and SYSTEM_Y ClaimService occur at three different moments:

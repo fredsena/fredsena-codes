@@ -116,6 +116,22 @@ public JsonResult GetCursos(string alunoId)
     return Json(result);
 }
 
+/* ############################################################################################################################### */
+
+//Linq NOT IN(2):
+var emails = new List<string> { "Atum@fred.com", "me@hi.com", "Pal@fred.com", "fred_sena@fred.com"};
+
+var foundEmailsFromUsers = 
+	Users.Where(x => !Users.Any(s => !emails.Contains(x.Email)))
+		 .Select(x => x.Email);
+
+var notfoundEmails = from e in emails where !foundEmailsFromUsers.Contains(e) select e;		
+
+//Use ".Dump()" in LinQPad (Language: C# Statements)
+notfoundEmails.Dump();
+
+/* ############################################################################################################################### */
+
 //Zeroes values from a specific column 
 dt.Rows.OfType<DataRow>().ToList().ForEach(x => x["VlrPagamento"] = DBNull.Value);
 
